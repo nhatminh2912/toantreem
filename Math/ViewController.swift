@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     
     var timer = Timer()
     
+    var ketqua: Float = 0
+    
     @IBOutlet weak var lbl_p1: UILabel!
     
     @IBOutlet weak var signLbl: UILabel!
@@ -34,9 +36,11 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var lbl_timer: UILabel!
     
-    @IBAction func traloi_btn(_ sender: UIButton) {
+    @IBAction func traloi_btn(_ sender: UIButton)
+    {
         
         setRandom()
+        
     }
     
     func thoigian()
@@ -57,119 +61,78 @@ class ViewController: UIViewController {
     
     
     
-    func setRandom() {
+    func setRandom()
+    {
         let random1 = Int(arc4random_uniform(4)) + 1
         let random2 = Int(arc4random_uniform(4)) + 1
         lbl_p1.text = String(random1)
         lbl_p2.text = String(random2)
+        randomSign(randomA: random1, randomB: random2)
         setResult(randomA: random1, randomB: random2)
+        
     }
     
     func setResult(randomA: Int, randomB: Int)
-    {   let randompt = Int(arc4random_uniform(4))
+    {
         
         let randomvt = Int(arc4random_uniform(3))
-        if randompt == 0 {
-            
-            signLbl.text = "+"
+        
+        if randomvt == 0
+        {
+            btn_b1.setTitle(String(format: "%.1f", (ketqua)) , for: .normal)
+            btn_b2.setTitle(String(format: "%.1f", ((ketqua) - 1)), for: .normal)
+            btn_b3.setTitle(String(format: "%.1f", ((ketqua) + 1)), for: .normal)
         }
-        else if randompt == 1 {
-            
-            signLbl.text = "-"
+        else if randomvt == 1
+        {
+            btn_b1.setTitle(String(format: "%.1f",(ketqua) + 1) , for: .normal)
+            btn_b2.setTitle(String(format: "%.1f",ketqua), for: .normal)
+            btn_b3.setTitle(String(format: "%.1f",(ketqua) - 1), for: .normal)
         }
-        else if randompt == 2 {
-            
-            signLbl.text = "x"
+        else
+        {
+            btn_b1.setTitle(String(format: "%.1f",(ketqua) - 1), for: .normal)
+            btn_b2.setTitle(String(format: "%.1f",(ketqua) + 1), for: .normal)
+            btn_b3.setTitle(String(format: "%.1f",ketqua), for: .normal)
         }
-        else {
-            
-            signLbl.text = ":"
-        }
-        if randomvt == 0 {
-            if randompt == 0 {
-                btn_b1.setTitle(String(sum(p1: randomA, p2: randomB)) , for: .normal)
-                btn_b2.setTitle(String(sum(p1: randomA, p2: randomB) + Int(arc4random_uniform(4) + 1)) , for: .normal)
-                btn_b3.setTitle(String(sum(p1: randomA, p2: randomB) - Int(arc4random_uniform(4) + 1)) , for: .normal)
-            }
-            else if  randompt == 1 {
-                btn_b1.setTitle(String(sub(p1: randomA, p2: randomB) - Int(arc4random_uniform(4) + 1)) , for: .normal)
-                btn_b2.setTitle(String(sub(p1: randomA, p2: randomB)) , for: .normal)
-                btn_b3.setTitle(String(sub(p1: randomA, p2: randomB) + Int(arc4random_uniform(4) + 1)) , for: .normal)
-            }
-            else if  randompt == 2 {
-                btn_b1.setTitle(String(multi(p1: randomA, p2: randomB) + Int(arc4random_uniform(4) + 1)) , for: .normal)
-                btn_b2.setTitle(String(multi(p1: randomA, p2: randomB) - Int(arc4random_uniform(4) + 1)) , for: .normal)
-                btn_b3.setTitle(String(multi(p1: randomA, p2: randomB)) , for: .normal)
-            }
-            else if  randompt == 3 {
-                btn_b1.setTitle(String(format: "%.1f", div(p1: randomA, p2: randomB)) , for: .normal)
-                btn_b2.setTitle(String(format: "%.1f", div(p1: randomA, p2: randomB) - Float(arc4random_uniform(4) + 1)) , for: .normal)
-                btn_b3.setTitle(String(format: "%.1f", div(p1: randomA, p2: randomB) + Float(arc4random_uniform(4) + 1)) , for: .normal)
-            }
-        }
-        else if randomvt == 1 {
-            
-            if randompt == 0 {
-                btn_b1.setTitle(String(sum(p1: randomA, p2: randomB) - Int(arc4random_uniform(4) + 2)) , for: .normal)
-                btn_b2.setTitle(String(sum(p1: randomA, p2: randomB) + Int(arc4random_uniform(4) + 2)) , for: .normal)
-                btn_b3.setTitle(String(sum(p1: randomA, p2: randomB)) , for: .normal)
-            }
-            else if  randompt == 1 {
-                btn_b1.setTitle(String(sub(p1: randomA, p2: randomB)) , for: .normal)
-                btn_b2.setTitle(String(sub(p1: randomA, p2: randomB) + Int(arc4random_uniform(4) + 2)) , for: .normal)
-                btn_b3.setTitle(String(sub(p1: randomA, p2: randomB) - Int(arc4random_uniform(4) + 2)) , for: .normal)
-            }
-            else if  randompt == 2 {
-                btn_b1.setTitle(String(multi(p1: randomA, p2: randomB) - Int(arc4random_uniform(4) + 2)) , for: .normal)
-                btn_b2.setTitle(String(multi(p1: randomA, p2: randomB)) , for: .normal)
-                btn_b3.setTitle(String(multi(p1: randomA, p2: randomB) + Int(arc4random_uniform(4) + 2)) , for: .normal)
-            }
-            else if  randompt == 3 {
-                btn_b1.setTitle(String(format: "%.1f", div(p1: randomA, p2: randomB) + Float(arc4random_uniform(4) + 2)) , for: .normal)
-                btn_b2.setTitle(String(format: "%.1f", div(p1: randomA, p2: randomB)) , for: .normal)
-                btn_b3.setTitle(String(format: "%.1f", div(p1: randomA, p2: randomB) - Float(arc4random_uniform(4) + 2)) , for: .normal)
-            }
-        }
-        else if randomvt == 2 {
-            if randompt == 0 {
-                btn_b1.setTitle(String(sum(p1: randomA, p2: randomB) + Int(arc4random_uniform(4) + 3)) , for: .normal)
-                btn_b2.setTitle(String(sum(p1: randomA, p2: randomB)) , for: .normal)
-                btn_b3.setTitle(String(sum(p1: randomA, p2: randomB) - Int(arc4random_uniform(4) + 3)) , for: .normal)
-            }
-            else if randompt == 1 {
-                btn_b1.setTitle(String(sub(p1: randomA, p2: randomB) - Int(arc4random_uniform(4) + 3) ) , for: .normal)
-                btn_b2.setTitle(String(sub(p1: randomA, p2: randomB) + Int(arc4random_uniform(4) + 3)) , for: .normal)
-                btn_b3.setTitle(String(sub(p1: randomA, p2: randomB)) , for: .normal)
-            }
-            else if  randompt == 2 {
-                btn_b1.setTitle(String(multi(p1: randomA, p2: randomB)) , for: .normal)
-                btn_b2.setTitle(String(multi(p1: randomA, p2: randomB) + Int(arc4random_uniform(4) + 3)) , for: .normal)
-                btn_b3.setTitle(String(multi(p1: randomA, p2: randomB) - Int(arc4random_uniform(4) + 3)) , for: .normal)
-            }
-            else if  randompt == 3 {
-                btn_b1.setTitle(String(format: "%.1f", div(p1: randomA, p2: randomB) + Float(arc4random_uniform(4) + 3)) , for: .normal)
-                btn_b2.setTitle(String(format: "%.1f", div(p1: randomA, p2: randomB) - Float(arc4random_uniform(4) + 3)) , for: .normal)
-                btn_b3.setTitle(String(format: "%.1f", div(p1: randomA, p2: randomB)) , for: .normal)
-            }
-        }
+       
+    }
+    
+    func randomSign(randomA: Int, randomB: Int)
+    {
+        let randompt = Int(arc4random_uniform(4))
+        
+        
         
         if randompt == 0 {
             
             signLbl.text = "+"
+            ketqua = Float(sum(p1: randomA, p2: randomB))
+            
         }
         else if randompt == 1 {
             
             signLbl.text = "-"
+            ketqua = Float(sub(p1: randomA, p2: randomB))
+            
         }
-        else if randompt == 2 {
+        else if randompt == 2
+        {
             
             signLbl.text = "x"
+            ketqua = Float(multi(p1: randomA, p2: randomB))
+            
         }
-        else {
+        else
+        {
             
             signLbl.text = ":"
+            ketqua = div(p1: randomA, p2: randomB)
+            
         }
+        print(randompt)
     }
+    
     
     func sum(p1: Int, p2: Int) -> Int
     {
@@ -187,7 +150,7 @@ class ViewController: UIViewController {
         return Float(p1)/Float(p2)
     }
     
-
+    
 
 
 }
